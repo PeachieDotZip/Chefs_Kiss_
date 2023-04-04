@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PotBehaviour : MonoBehaviour
 {
-    private Collider2D collider;
+    private Collider2D potCollider;
 
     //ingredient numbers
     public int testNum;
@@ -17,7 +17,7 @@ public class PotBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<Collider2D>();
+        potCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
