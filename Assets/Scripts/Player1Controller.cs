@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
+using static UnityEngine.GraphicsBuffer;
 // Add in this using
 public class Player1Controller : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class Player1Controller : MonoBehaviour
     public GameObject holdTarget;
     public bool grabAttempt;
     public bool dropAttempt;
+    private Rigidbody2D rb;
+    float moveHorizontal;
+    float moveVertical;
 
     /// <summary>
     /// Awake is called even before Start()
@@ -29,6 +34,7 @@ public class Player1Controller : MonoBehaviour
         holdTarget = null;
         holdPoint = GameObject.Find("HoldPoint").transform;
         isHolding = false;
+        rb = GetComponent<Rigidbody2D>();
 
         //initializing the reference to player controls map
         controls = new GamplayActions();
@@ -51,9 +57,9 @@ public class Player1Controller : MonoBehaviour
         // In this case we have no need for position values so ctx is not saved
         controls.Gameplay.Grow.performed += ctx => Grow();
         controls.Gameplay.Grab.performed += ctx => grabAttempt = true;
-        controls.Gameplay.Grab.performed += ctx => Grab();
+        controls.Gameplay.Grab.performed += ctx => StartCoroutine(Grab());
         controls.Gameplay.Drop.performed += ctx => dropAttempt = true;
-        controls.Gameplay.Drop.performed += ctx => Drop();
+        controls.Gameplay.Drop.performed += ctx => StartCoroutine(Drop());
         // In the following pieces of code, we need to use the data that
         // UNITY returns to actually move/rotate the object
         //
@@ -68,9 +74,9 @@ public class Player1Controller : MonoBehaviour
     //button/thumbstick
         // So we reset the move value to zero and attach it to the .cancelled event
         controls.Gameplay.Walk.canceled += ctx => move = Vector2.zero;
-        //controls.Gameplay.Walk.performed += ctx => rotate =
-        //ctx.ReadValue<Vector2>();
-        //controls.Gameplay.Walk.canceled += ctx => rotate = Vector2.zero;
+        controls.Gameplay.Walk.performed += ctx => rotate =
+        ctx.ReadValue<Vector2>();
+        controls.Gameplay.Walk.canceled += ctx => rotate = Vector2.zero;
 
     }
     private void FixedUpdate()
@@ -79,13 +85,15 @@ public class Player1Controller : MonoBehaviour
         // We multiply it by Time.deltaTime to keep it independent of frame rate
         // Then we apply this manipulated value to the Translate function on
         // the transform of the object
-        Vector2 moveVelocity = new Vector2(move.x, move.y) * 5f * Time.deltaTime;
+        Vector2 moveVelocity = new Vector2(move.x, move.y) * 7f * Time.deltaTime;
         transform.Translate(moveVelocity, Space.Self);
         // Manipulate the saved value and apply it to the Rotate function of the
         // object
-        Vector2 rotateVelocity = new Vector2(rotate.x, rotate.y) * 100f *
+        Vector2 rotateVelocity = new Vector2(rotate.x, rotate.y) * 10f *
         Time.deltaTime;
-        transform.Rotate(rotateVelocity, Space.World);
+        //transform.Rotate(rotateVelocity, Space.World);
+        //transform.rotation = Quaternion.LookRotation(rotateVelocity);
+        //Quaternion.RotateTowards(moveVelocity, Vector2.up, 10f);
 
         if (isHolding)
         {
@@ -93,6 +101,7 @@ public class Player1Controller : MonoBehaviour
 
 
         }
+
     }
     void Grow()
     {
@@ -101,7 +110,7 @@ public class Player1Controller : MonoBehaviour
 
     }
 
-    IEnumerator Grab()
+    private IEnumerator Grab()
     {
         if (canGrab == true)
         {
@@ -111,11 +120,12 @@ public class Player1Controller : MonoBehaviour
         grabAttempt = false;
 
     }
-    IEnumerator Drop()
+    private IEnumerator Drop()
     {
         yield return new WaitForSeconds(0.1f);
         dropAttempt = false;
         isHolding = false;
+        holdTarget = null;
     }
     /// <summary>
     /// Should always be included
