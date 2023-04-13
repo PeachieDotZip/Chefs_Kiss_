@@ -1,15 +1,24 @@
+/*****************************************************************************
+// File Name :         Player1Controller.cs
+// Author :            John H. Weber
+// Creation Date :     Apr 5th, 2023
+//
+// Brief Description : Controls all variables and code for movement and inputs, as well as applying the correct rotation for its direction.
+*****************************************************************************/
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using static UnityEngine.GraphicsBuffer;
-// Add in this using
+
 public class Player1Controller : MonoBehaviour
 {
     // reference to the input action you created
     GamplayActions controls;
     //variables to store data returned by the ReadValue function
+    [SerializeField]
     Vector2 move;
+    [SerializeField]
     Vector2 rotate;
 
     //Player1-specific variables
@@ -20,8 +29,7 @@ public class Player1Controller : MonoBehaviour
     public bool grabAttempt;
     public bool dropAttempt;
     private Rigidbody2D rb;
-    float moveHorizontal;
-    float moveVertical;
+    public GameObject sprite;
 
     /// <summary>
     /// Awake is called even before Start()
@@ -74,42 +82,68 @@ public class Player1Controller : MonoBehaviour
     //button/thumbstick
         // So we reset the move value to zero and attach it to the .cancelled event
         controls.Gameplay.Walk.canceled += ctx => move = Vector2.zero;
-        controls.Gameplay.Walk.performed += ctx => rotate =
-        ctx.ReadValue<Vector2>();
-        controls.Gameplay.Walk.canceled += ctx => rotate = Vector2.zero;
+        controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
 
     }
+    /// <summary>
+    /// Part of the script where the moveVelocity is recorded. Also applies correct rotation for directional movement.
+    /// </summary>
     private void FixedUpdate()
     {
         // Here, we take the saved move value and manipulate it to show up in UNITY
         // We multiply it by Time.deltaTime to keep it independent of frame rate
         // Then we apply this manipulated value to the Translate function on
         // the transform of the object
-        Vector2 moveVelocity = new Vector2(move.x, move.y) * 7f * Time.deltaTime;
+        Vector2 moveVelocity = new Vector2(move.x, move.y) * 7.5f * Time.deltaTime;
         transform.Translate(moveVelocity, Space.Self);
         // Manipulate the saved value and apply it to the Rotate function of the
         // object
-        Vector2 rotateVelocity = new Vector2(rotate.x, rotate.y) * 10f *
-        Time.deltaTime;
-        //transform.Rotate(rotateVelocity, Space.World);
-        //transform.rotation = Quaternion.LookRotation(rotateVelocity);
-        //Quaternion.RotateTowards(moveVelocity, Vector2.up, 10f);
 
+        //This part of the script changes the rotation of the main object to account for direction.
+        if (rotate.x == -1)
+        {
+            sprite.transform.eulerAngles = new Vector3(0f, 0f, 90f);
+        }
+        if (rotate.x == 1)
+        {
+            sprite.transform.eulerAngles = new Vector3(0f, 0f, -90f);
+        }
+        if (rotate.y < 0)
+        {
+            sprite.transform.eulerAngles = new Vector3(0f, 0f, 180f);
+        }
+        if (rotate.y > 0.707 && rotate.y < 1.35)
+        {
+            sprite.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        }
+        if (rotate.x == 0 && rotate.y == 0)
+        {
+            sprite.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        }
+
+        //Everything that happens while holding an object.
         if (isHolding)
         {
             holdTarget.transform.position = holdPoint.position;
-
+            //^^^ Keeps the grabbed object at the hold point.
 
         }
 
     }
+    /// <summary>
+    /// Debug function. Tests input. Simply grows object.
+    /// </summary>
     void Grow()
     {
         // Increasing the scale of the object
         transform.localScale *= 1.1f;
 
     }
-
+    /// <summary>
+    /// Player has pressed the "grab" button. If near an object, the player will begin holding it.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Grab()
     {
         if (canGrab == true)
@@ -120,6 +154,10 @@ public class Player1Controller : MonoBehaviour
         grabAttempt = false;
 
     }
+    /// <summary>
+    /// Player has pressed the "drop" button. If holding an object, the player will drop it.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Drop()
     {
         yield return new WaitForSeconds(0.1f);

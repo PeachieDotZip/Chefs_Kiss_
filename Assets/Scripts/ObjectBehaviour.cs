@@ -1,3 +1,11 @@
+/*****************************************************************************
+// File Name :         ObjectBehaviour.cs
+// Author :            John H. Weber
+// Creation Date :     Apr 5th, 2023
+//
+// Brief Description : This script controls many things such as whether or not it is being held, 
+//                     collision with the pot, and animation triggers. It also holds it's own object ID.
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +24,9 @@ public class ObjectBehaviour : MonoBehaviour
     private readonly float maxDistanceFromObj = 2.5f;
     private Player1Controller p1;
     private bool isGrabbed;
+    public GameObject dustEffect;
+    [SerializeField]
+    private GameObject icon;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +38,10 @@ public class ObjectBehaviour : MonoBehaviour
         p1 = playerPos.gameObject.GetComponent<Player1Controller>();
     }
 
-
+    /// <summary>
+    /// This update function records the distance between this object and the player.
+    /// If the player is within the given radius, the object can be picked up when the player makes a grab attempt.
+    /// </summary>
     void Update()
     {
         float dist = Vector3.Distance(playerPos.position, transform.position);
@@ -46,6 +60,7 @@ public class ObjectBehaviour : MonoBehaviour
         {
             objCollider.enabled = true;
             rb.freezeRotation = false;
+            p1.isHolding = false;
             p1.holdTarget = null;
             isGrabbed = false;
         }
@@ -55,6 +70,10 @@ public class ObjectBehaviour : MonoBehaviour
 
         }
     }
+    /// <summary>
+    /// Tells the object what to do when coming in contact with the pot.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Pot"))
@@ -88,7 +107,10 @@ public class ObjectBehaviour : MonoBehaviour
                 print("objectID out of knowable range!");
                 break;
         }
-        //Spawn dust particle at position
+
+        Instantiate(dustEffect, gameObject.transform.position, Quaternion.identity);
+        // Instantiates a dust particle at the position of the object for extra effect.
+        // It just kinda looks cool lol.
     }
     /// <summary>
     /// Destroys object. Also called during "cook" animation.
@@ -96,9 +118,13 @@ public class ObjectBehaviour : MonoBehaviour
     public void DestroyObject()
     {
         Debug.Log(gameObject.name + " deleted!");
+        icon.SetActive(true);
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Debug code. Draws the object's radius.
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;

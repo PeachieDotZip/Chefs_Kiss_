@@ -55,6 +55,15 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""2a5e160f-cf69-4945-9499-9ac927194ea2"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Grow"",
                     ""type"": ""Button"",
                     ""id"": ""5ce2cc52-b3b0-4717-b09a-e0a495cfe8c9"",
@@ -108,6 +117,17 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
                     ""action"": ""Drop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8aed888b-ebcd-48a0-af2a-19e97864556f"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -119,6 +139,7 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
         m_Gameplay_Grab = m_Gameplay.FindAction("Grab", throwIfNotFound: true);
         m_Gameplay_Drop = m_Gameplay.FindAction("Drop", throwIfNotFound: true);
         m_Gameplay_Walk = m_Gameplay.FindAction("Walk", throwIfNotFound: true);
+        m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
         m_Gameplay_Grow = m_Gameplay.FindAction("Grow", throwIfNotFound: true);
     }
 
@@ -184,6 +205,7 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Grab;
     private readonly InputAction m_Gameplay_Drop;
     private readonly InputAction m_Gameplay_Walk;
+    private readonly InputAction m_Gameplay_Rotate;
     private readonly InputAction m_Gameplay_Grow;
     public struct GameplayActions
     {
@@ -192,6 +214,7 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
         public InputAction @Grab => m_Wrapper.m_Gameplay_Grab;
         public InputAction @Drop => m_Wrapper.m_Gameplay_Drop;
         public InputAction @Walk => m_Wrapper.m_Gameplay_Walk;
+        public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
         public InputAction @Grow => m_Wrapper.m_Gameplay_Grow;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
@@ -211,6 +234,9 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
             @Walk.started += instance.OnWalk;
             @Walk.performed += instance.OnWalk;
             @Walk.canceled += instance.OnWalk;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
             @Grow.started += instance.OnGrow;
             @Grow.performed += instance.OnGrow;
             @Grow.canceled += instance.OnGrow;
@@ -227,6 +253,9 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
             @Walk.started -= instance.OnWalk;
             @Walk.performed -= instance.OnWalk;
             @Walk.canceled -= instance.OnWalk;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
             @Grow.started -= instance.OnGrow;
             @Grow.performed -= instance.OnGrow;
             @Grow.canceled -= instance.OnGrow;
@@ -252,6 +281,7 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
         void OnGrab(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
         void OnGrow(InputAction.CallbackContext context);
     }
 }

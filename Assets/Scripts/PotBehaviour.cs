@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name :         PotBehaviour.cs
+// Author :            John H. Weber
+// Creation Date :     Apr 5th, 2023
+//
+// Brief Description : Controls pot collision and holds values for ingredient numbers for dishes.
+*****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -20,11 +27,10 @@ public class PotBehaviour : MonoBehaviour
         potCollider = GetComponent<Collider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// Debug code used for testing collisions with objects of different tags. Reports objects to console.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Test"))
@@ -33,7 +39,7 @@ public class PotBehaviour : MonoBehaviour
         }
         if (!other.gameObject.CompareTag("Player"))
         {
-            print("Ingredient Added: " + other.gameObject.tag);
+            print("Ingredient Added: " + other.gameObject.name);
         }
     }
 }

@@ -33,6 +33,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Rotate",
+                    "type": "Value",
+                    "id": "2a5e160f-cf69-4945-9499-9ac927194ea2",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Grow",
                     "type": "Button",
                     "id": "5ce2cc52-b3b0-4717-b09a-e0a495cfe8c9",
@@ -84,6 +93,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8aed888b-ebcd-48a0-af2a-19e97864556f",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
