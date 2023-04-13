@@ -1,7 +1,7 @@
 /*****************************************************************************
 // File Name :         EnemyBehaviour.cs
 // Author :            John H. Weber
-// Creation Date :     Apr 14th, 2023
+// Creation Date :     Apr 12th, 2023
 //
 // Brief Description : Controls enemy movement and provides bools to be used in animations for when enemies should move.
 *****************************************************************************/

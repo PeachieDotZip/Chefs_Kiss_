@@ -1,7 +1,7 @@
 /*****************************************************************************
 // File Name :         DustScript.cs
 // Author :            John H. Weber
-// Creation Date :     Apr 14th, 2023
+// Creation Date :     Apr 12th, 2023
 //
 // Brief Description : This script is mostly just used to delete the dust effect so it doesnt take up space.
 //                      Script can be added onto later for more use.
