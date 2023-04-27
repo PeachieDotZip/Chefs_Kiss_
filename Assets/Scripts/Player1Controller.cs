@@ -8,11 +8,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.XR;
 using static UnityEngine.GraphicsBuffer;
 
 public class Player1Controller : MonoBehaviour
 {
+
     // reference to the input action you created
     GamplayActions controls;
     //variables to store data returned by the ReadValue function
@@ -30,22 +32,40 @@ public class Player1Controller : MonoBehaviour
     public bool dropAttempt;
     private Rigidbody2D rb;
     public GameObject sprite;
+    private InputActionAsset actionAsset;
+    private InputActionMap actionMap;
+    InputAction walk;
+    InputAction walkRotate;
+    InputAction grab;
+    InputAction drop;
 
     /// <summary>
-    /// Awake is called even before Start()
+    /// Awake is called even before Start
     /// Instantiates the input action reference
     /// Gets values from the system
     /// Create actions to perform when a button is triggered
     /// </summary>
     private void Awake()
     {
+        controls = new GamplayActions();
+
         holdTarget = null;
         holdPoint = GameObject.Find("HoldPoint").transform;
         isHolding = false;
         rb = GetComponent<Rigidbody2D>();
 
+
+        actionAsset = GetComponent<PlayerInput>().actions;
+        actionMap = actionAsset.FindActionMap("Gameplay");
+
+        walk = actionMap.FindAction("Walk");
+        walkRotate = actionMap.FindAction("Rotate");
+        grab = actionMap.FindAction("Grab");
+        drop = actionMap.FindAction("Drop");
+
+
         //initializing the reference to player controls map
-        controls = new GamplayActions();
+
         // In the following code line:
         // control = reference to player controls Input Actions
         // Gameplay = Action Map that you created
@@ -64,10 +84,10 @@ public class Player1Controller : MonoBehaviour
         // then go to the Grow() function
         // In this case we have no need for position values so ctx is not saved
         controls.Gameplay.Grow.performed += ctx => Grow();
-        controls.Gameplay.Grab.performed += ctx => grabAttempt = true;
-        controls.Gameplay.Grab.performed += ctx => StartCoroutine(Grab());
-        controls.Gameplay.Drop.performed += ctx => dropAttempt = true;
-        controls.Gameplay.Drop.performed += ctx => StartCoroutine(Drop());
+        grab.performed += ctx => grabAttempt = true;
+        grab.performed += ctx => StartCoroutine(Grab());
+        drop.performed += ctx => dropAttempt = true;
+        drop.performed += ctx => StartCoroutine(Drop());
         // In the following pieces of code, we need to use the data that
         // UNITY returns to actually move/rotate the object
         //
@@ -77,13 +97,13 @@ public class Player1Controller : MonoBehaviour
         //
         // We then use this saved value in the FixedUpdate function to manipulate
         // the object
-        controls.Gameplay.Walk.performed += ctx => move = ctx.ReadValue<Vector2>();
+        walk.performed += ctx => move = ctx.ReadValue<Vector2>();
     // We don't want the object to move if we are not pressing the
     //button/thumbstick
         // So we reset the move value to zero and attach it to the .cancelled event
-        controls.Gameplay.Walk.canceled += ctx => move = Vector2.zero;
-        controls.Gameplay.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Rotate.canceled += ctx => rotate = Vector2.zero;
+        walk.canceled += ctx => move = Vector2.zero;
+        walkRotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        walkRotate.canceled += ctx => rotate = Vector2.zero;
 
     }
     /// <summary>
@@ -119,7 +139,10 @@ public class Player1Controller : MonoBehaviour
         }
         if (rotate.x == 0 && rotate.y == 0)
         {
-            sprite.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            //sprite.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            //^^^resets to "neutral position". Scrapped.
+            rb.velocity = Vector2.zero;
+            //^^^ sets velocity to zero, just in case the object gets moved.
         }
 
         //Everything that happens while holding an object.
@@ -144,7 +167,7 @@ public class Player1Controller : MonoBehaviour
     /// Player has pressed the "grab" button. If near an object, the player will begin holding it.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Grab()
+    public IEnumerator Grab()
     {
         if (canGrab == true)
         {
@@ -158,12 +181,16 @@ public class Player1Controller : MonoBehaviour
     /// Player has pressed the "drop" button. If holding an object, the player will drop it.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Drop()
+    public IEnumerator Drop()
     {
         yield return new WaitForSeconds(0.1f);
         dropAttempt = false;
-        isHolding = false;
-        holdTarget = null;
+        if (holdTarget != null)
+        {
+            isHolding = false;
+            holdTarget.GetComponent<Collider2D>().enabled = true;
+            holdTarget = null;
+        }
     }
     /// <summary>
     /// Should always be included

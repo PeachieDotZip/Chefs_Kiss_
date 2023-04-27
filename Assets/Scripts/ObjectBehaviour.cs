@@ -9,27 +9,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ObjectBehaviour : MonoBehaviour
 {
-    private Collider2D objCollider;
     [SerializeField]
     private int objectID;
+    //Object ID is used to identify which ingredient this object counts for.
+    //The list goes as follows:
+    // 0 = test
+    // 1 = carrot
+    // 2 = water
+    // 3 = lettuce
+    // 4 = flour
+    // 5 = pepper
+    // 6 = egg
+    // 7 = cheese
+    // 8 = butter
+
+    private Collider2D objCollider;
     private PotBehaviour pot = null;
     private Animator anim;
     private Rigidbody2D rb;
     private Transform playerPos;
-    private readonly float maxDistanceFromObj = 2.5f;
+    public float maxDistanceFromObj = 2.5f; // max distance away from object that the player can be to grab it
     private Player1Controller p1;
-    private bool isGrabbed;
+    public bool isGrabbed;
     public GameObject dustEffect;
     [SerializeField]
     private GameObject icon;
+    public bool isEnemy;
+    private EnemyBehaviour enemyB;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start function simply assigns some private variables
+    /// </summary>
     void Start()
+    {
+        objCollider = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        playerPos = GameObject.Find("Player1").transform;
+        p1 = playerPos.gameObject.GetComponent<Player1Controller>();
+        if (isEnemy == true)
+        {
+            enemyB = GetComponent<EnemyBehaviour>();
+            this.enabled = false;
+        }
+        else
+        {
+            enemyB = null;
+        }
+    }
+    void OnEnable()
     {
         objCollider = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
@@ -69,6 +102,11 @@ public class ObjectBehaviour : MonoBehaviour
         {
 
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //playerPos = GameObject.Find("Player1(Clone)").transform;
+            //p1 = playerPos.gameObject.GetComponent<Player1Controller>();
+        }
     }
     /// <summary>
     /// Tells the object what to do when coming in contact with the pot.
@@ -77,12 +115,25 @@ public class ObjectBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Pot"))
+        {
+            if (isEnemy == true)
             {
-            pot = other.gameObject.GetComponent<PotBehaviour>();
-            anim.SetTrigger("cook");
-            objCollider.enabled = false;
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                if (enemyB.dazed == true)
+                {
+                    pot = other.gameObject.GetComponent<PotBehaviour>();
+                    anim.SetTrigger("cook");
+                    objCollider.enabled = false;
+                    rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                }
             }
+            else
+            {
+                pot = other.gameObject.GetComponent<PotBehaviour>();
+                anim.SetTrigger("cook");
+                objCollider.enabled = false;
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            }
+        }
 
     }
     /// <summary>
@@ -91,6 +142,16 @@ public class ObjectBehaviour : MonoBehaviour
     /// </summary>
     public void CookObject()
     {
+        // Object ID list:
+        // 0 = test
+        // 1 = carrot
+        // 2 = water
+        // 3 = lettuce
+        // 4 = flour
+        // 5 = pepper
+        // 6 = egg
+        // 7 = cheese
+        // 8 = butter
         switch (objectID)
         {
             case 0:
@@ -98,10 +159,28 @@ public class ObjectBehaviour : MonoBehaviour
                 pot.testNum += 1;
                 break;
             case 1:
-                pot.eggNum += 1;
+                pot.carrotNum += 1;
                 break;
             case 2:
-                pot.carrotNum += 1;
+                pot.waterNum += 1;
+                break;
+            case 3:
+                pot.lettuceNum += 1;
+                break;
+            case 4:
+                pot.flourNum += 1;
+                break;
+            case 5:
+                pot.pepperNum += 1;
+                break;
+            case 6:
+                pot.eggNum += 1;
+                break;
+            case 7:
+                pot.cheeseNum += 1;
+                break;
+            case 8:
+                pot.butterNum += 1;
                 break;
             default:
                 print("objectID out of knowable range!");

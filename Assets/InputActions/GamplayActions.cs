@@ -76,8 +76,8 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""ab4b1119-fec0-4356-ba42-02dc7f86f1a1"",
-                    ""path"": ""<XInputController>/buttonEast"",
+                    ""id"": ""0db667ce-f9ad-4088-9f56-e61a595140cb"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -87,30 +87,8 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6aba75b1-54dc-4681-bd2a-35d90d0d4299"",
-                    ""path"": ""<XInputController>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b96a7b74-4c7a-43b1-9e3d-d6026ecb7fad"",
-                    ""path"": ""<XInputController>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Grow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6d0cff05-c891-49cd-bd13-fb1e479d30bf"",
-                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""id"": ""e383838b-dcb6-4e44-bc2b-f7648c734709"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -120,19 +98,152 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8aed888b-ebcd-48a0-af2a-19e97864556f"",
-                    ""path"": ""<XInputController>/leftStick"",
+                    ""id"": ""46e29326-97e8-4a97-b3b3-cdddf3300e38"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb46be9e-6fdc-4075-b839-07a14fce0c6d"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""248b7fa0-00dd-46ff-bf3f-f46af6a02652"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gameplay1"",
+            ""id"": ""fd7a5942-3fe2-4d62-9439-42a3331082f5"",
+            ""actions"": [
+                {
+                    ""name"": ""Swing"",
+                    ""type"": ""Button"",
+                    ""id"": ""2317711e-bac5-42e5-b42f-e93e0bb6e0cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Walk"",
+                    ""type"": ""Value"",
+                    ""id"": ""006c52d6-28a2-445d-8336-9020edade184"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""1008d458-5008-4f78-8b3b-ea5122891fd0"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Grow"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc743e69-72cc-4618-9b4e-a527d6fddb7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6aa86a8b-6868-4c16-bdad-0f38e999d502"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fe36f2f-d922-4684-a038-d49f61370840"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f34a2973-5cde-40d7-aae2-4db737398351"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a91c33d-1bfb-4a75-a429-eec06fbed171"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Player1Input"",
+            ""bindingGroup"": ""Player1Input"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player2Input"",
+            ""bindingGroup"": ""Player2Input"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
@@ -141,6 +252,12 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
         m_Gameplay_Walk = m_Gameplay.FindAction("Walk", throwIfNotFound: true);
         m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
         m_Gameplay_Grow = m_Gameplay.FindAction("Grow", throwIfNotFound: true);
+        // Gameplay1
+        m_Gameplay1 = asset.FindActionMap("Gameplay1", throwIfNotFound: true);
+        m_Gameplay1_Swing = m_Gameplay1.FindAction("Swing", throwIfNotFound: true);
+        m_Gameplay1_Walk = m_Gameplay1.FindAction("Walk", throwIfNotFound: true);
+        m_Gameplay1_Rotate = m_Gameplay1.FindAction("Rotate", throwIfNotFound: true);
+        m_Gameplay1_Grow = m_Gameplay1.FindAction("Grow", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -276,10 +393,105 @@ public partial class @GamplayActions: IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // Gameplay1
+    private readonly InputActionMap m_Gameplay1;
+    private List<IGameplay1Actions> m_Gameplay1ActionsCallbackInterfaces = new List<IGameplay1Actions>();
+    private readonly InputAction m_Gameplay1_Swing;
+    private readonly InputAction m_Gameplay1_Walk;
+    private readonly InputAction m_Gameplay1_Rotate;
+    private readonly InputAction m_Gameplay1_Grow;
+    public struct Gameplay1Actions
+    {
+        private @GamplayActions m_Wrapper;
+        public Gameplay1Actions(@GamplayActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Swing => m_Wrapper.m_Gameplay1_Swing;
+        public InputAction @Walk => m_Wrapper.m_Gameplay1_Walk;
+        public InputAction @Rotate => m_Wrapper.m_Gameplay1_Rotate;
+        public InputAction @Grow => m_Wrapper.m_Gameplay1_Grow;
+        public InputActionMap Get() { return m_Wrapper.m_Gameplay1; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Gameplay1Actions set) { return set.Get(); }
+        public void AddCallbacks(IGameplay1Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_Gameplay1ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Gameplay1ActionsCallbackInterfaces.Add(instance);
+            @Swing.started += instance.OnSwing;
+            @Swing.performed += instance.OnSwing;
+            @Swing.canceled += instance.OnSwing;
+            @Walk.started += instance.OnWalk;
+            @Walk.performed += instance.OnWalk;
+            @Walk.canceled += instance.OnWalk;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @Grow.started += instance.OnGrow;
+            @Grow.performed += instance.OnGrow;
+            @Grow.canceled += instance.OnGrow;
+        }
+
+        private void UnregisterCallbacks(IGameplay1Actions instance)
+        {
+            @Swing.started -= instance.OnSwing;
+            @Swing.performed -= instance.OnSwing;
+            @Swing.canceled -= instance.OnSwing;
+            @Walk.started -= instance.OnWalk;
+            @Walk.performed -= instance.OnWalk;
+            @Walk.canceled -= instance.OnWalk;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @Grow.started -= instance.OnGrow;
+            @Grow.performed -= instance.OnGrow;
+            @Grow.canceled -= instance.OnGrow;
+        }
+
+        public void RemoveCallbacks(IGameplay1Actions instance)
+        {
+            if (m_Wrapper.m_Gameplay1ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGameplay1Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_Gameplay1ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Gameplay1ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public Gameplay1Actions @Gameplay1 => new Gameplay1Actions(this);
+    private int m_Player1InputSchemeIndex = -1;
+    public InputControlScheme Player1InputScheme
+    {
+        get
+        {
+            if (m_Player1InputSchemeIndex == -1) m_Player1InputSchemeIndex = asset.FindControlSchemeIndex("Player1Input");
+            return asset.controlSchemes[m_Player1InputSchemeIndex];
+        }
+    }
+    private int m_Player2InputSchemeIndex = -1;
+    public InputControlScheme Player2InputScheme
+    {
+        get
+        {
+            if (m_Player2InputSchemeIndex == -1) m_Player2InputSchemeIndex = asset.FindControlSchemeIndex("Player2Input");
+            return asset.controlSchemes[m_Player2InputSchemeIndex];
+        }
+    }
     public interface IGameplayActions
     {
         void OnGrab(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
+        void OnWalk(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
+        void OnGrow(InputAction.CallbackContext context);
+    }
+    public interface IGameplay1Actions
+    {
+        void OnSwing(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnGrow(InputAction.CallbackContext context);

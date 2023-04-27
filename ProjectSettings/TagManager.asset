@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Test
   - Pot
+  - Pan
   layers:
   - Default
   - TransparentFX
